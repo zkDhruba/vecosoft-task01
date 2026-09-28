@@ -1,16 +1,50 @@
-export type { IsoDateTime, Money, OrderItem, DeliveryWindow, TrackingEvent, SupportContact, OrderTracking, OrderStatus, TimelineStepVisualState, TimelineStepViewModel, TrackingScreenVariant, StatusHeroViewModel, OrderSummaryViewModel, TrackingPrimaryAction, OrderTrackingViewModel } from "./types";
+export type {
+  IsoDateTime,
+  Money,
+  OrderItem,
+  DeliveryWindow,
+  TrackingEvent,
+  SupportContact,
+  OrderTracking,
+  OrderStatus,
+  TimelineStepVisualState,
+  TimelineStepViewModel,
+  TrackingScreenVariant,
+  StatusHeroViewModel,
+  OrderSummaryViewModel,
+  TrackingPrimaryAction,
+  TrackingAlertViewModel,
+  OrderTrackingViewModel,
+} from "./types";
 
-export { ORDER_STATUS_FLOW, ORDER_STATUS_LABELS, TRACKING_PRIMARY_ACTION_LABELS } from "./constants";
-export { formatMoney, formatDateTime, formatDayLabel, formatDeliveryEta, sumMoney } from "./format";
+export {
+  ORDER_STATUS_FLOW,
+  ORDER_STATUS_LABELS,
+  TRACKING_PRIMARY_ACTION_LABELS,
+} from "./constants";
+export {
+  formatMoney,
+  formatDateTime,
+  formatDayLabel,
+  formatDeliveryEta,
+  sumMoney,
+} from "./format";
 export {
   resolveTrackingVariant,
   buildTimeline,
   buildStatusHero,
   resolvePrimaryAction,
+  buildTrackingAlert,
   toOrderTrackingViewModel,
 } from "./selectors";
 export {
   getMockOrderTracking,
   DEFAULT_DEMO_ORDER_ID,
   MOCK_NOW,
+  MOCK_ERROR_ORDER_ID,
+  DEMO_ORDERS,
 } from "./mock-data";
+export {
+  fetchOrderTracking,
+  OrderTrackingFetchError,
+} from "./fetch";

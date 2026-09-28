@@ -7,6 +7,7 @@ import type {
   StatusHeroViewModel,
   TimelineStepViewModel,
   TimelineStepVisualState,
+  TrackingAlertViewModel,
   TrackingPrimaryAction,
   TrackingScreenVariant,
 } from "./types";
@@ -140,10 +141,52 @@ export function resolvePrimaryAction(
   if (variant === "delivered_not_received") {
     return "report_issue";
   }
-  if (variant === "delayed" || variant === "tracking_unavailable") {
-    return "contact_support";
-  }
   return "contact_support";
+}
+
+export function buildTrackingAlert(
+  order: OrderTracking,
+  variant: TrackingScreenVariant,
+  now = new Date(),
+): TrackingAlertViewModel | null {
+  if (variant === "normal") {
+    return null;
+  }
+
+  if (variant === "delayed") {
+    const revised = order.revisedEstimatedDelivery
+      ? formatDeliveryEta(order.revisedEstimatedDelivery, {
+          prefix: "New window",
+          now,
+        })
+      : "We are confirming a new delivery window with the carrier";
+
+    return {
+      kind: "delayed",
+      title: "Delivery delayed",
+      body: `${revised}. Contact support if you need help.`,
+      actionLabel: "Contact support",
+      action: "contact_support",
+    };
+  }
+
+  if (variant === "tracking_unavailable") {
+    return {
+      kind: "tracking_unavailable",
+      title: "Tracking not available yet",
+      body: "Your order is confirmed. Carrier updates usually appear within a few hours.",
+      actionLabel: "Contact support",
+      action: "contact_support",
+    };
+  }
+
+  return {
+    kind: "delivered_not_received",
+    title: "Didn’t receive this order?",
+    body: "The carrier marked it delivered. Report an issue and we will open a support case.",
+    actionLabel: "Report delivery issue",
+    action: "report_issue",
+  };
 }
 
 /** Domain → screen view model. Single entry point for the UI layer. */
@@ -162,6 +205,7 @@ export function toOrderTrackingViewModel(
     order,
     variant,
     hero: buildStatusHero(order, variant, now),
+    alert: buildTrackingAlert(order, variant, now),
     timeline: buildTimeline(order, variant),
     summary: {
       items: order.items,

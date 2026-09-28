@@ -1,10 +1,13 @@
 import type { OrderTracking } from "./types";
 
 /**
- * Fixed "now" for deterministic happy-path demos.
+ * Fixed "now" for deterministic demos across happy path + edge cases.
  * Selectors still accept a real Date in production.
  */
 export const MOCK_NOW = new Date("2026-09-28T15:30:00.000Z");
+
+/** Special id that makes fetchOrderTracking throw (Phase 2 error demo). */
+export const MOCK_ERROR_ORDER_ID = "ord_error";
 
 const happyPathOrder: OrderTracking = {
   orderId: "ord_48291",
@@ -59,7 +62,6 @@ const happyPathOrder: OrderTracking = {
   },
 };
 
-/** Additional fixtures reserved for Phase 2–3 edge cases. */
 const delayedOrder: OrderTracking = {
   ...happyPathOrder,
   orderId: "ord_delayed",
@@ -67,6 +69,10 @@ const delayedOrder: OrderTracking = {
   estimatedDelivery: {
     start: "2026-09-28T10:00:00.000Z",
     end: "2026-09-28T12:00:00.000Z",
+  },
+  revisedEstimatedDelivery: {
+    start: "2026-09-29T10:00:00.000Z",
+    end: "2026-09-29T12:00:00.000Z",
   },
 };
 
@@ -76,6 +82,7 @@ const trackingUnavailableOrder: OrderTracking = {
   orderNumber: "VECO-33011",
   status: "processing",
   estimatedDelivery: null,
+  revisedEstimatedDelivery: null,
   trackingNumber: null,
   events: [],
 };
@@ -115,11 +122,34 @@ export function getMockOrderTracking(
   orderId: string,
 ): OrderTracking | null {
   const key = orderId.trim().toLowerCase();
-  return (
-    ordersById[key] ??
-    ordersById[orderId] ??
-    null
-  );
+  return ordersById[key] ?? ordersById[orderId] ?? null;
 }
 
 export const DEFAULT_DEMO_ORDER_ID = happyPathOrder.orderId;
+
+export const DEMO_ORDERS = [
+  {
+    id: happyPathOrder.orderId,
+    label: "Normal · out for delivery",
+  },
+  {
+    id: delayedOrder.orderId,
+    label: "Delayed · past ETA",
+  },
+  {
+    id: trackingUnavailableOrder.orderId,
+    label: "Tracking unavailable",
+  },
+  {
+    id: deliveredNotReceivedOrder.orderId,
+    label: "Delivered · not received",
+  },
+  {
+    id: MOCK_ERROR_ORDER_ID,
+    label: "Error state",
+  },
+  {
+    id: "ord_unknown",
+    label: "Empty · order not found",
+  },
+] as const;

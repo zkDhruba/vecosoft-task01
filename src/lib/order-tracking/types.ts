@@ -86,6 +86,8 @@ export interface OrderTracking {
   placedAt: IsoDateTime;
   /** Null when carrier ETA / tracking feed is not ready yet. */
   estimatedDelivery: DeliveryWindow | null;
+  /** Optional revised window after a delay is acknowledged. */
+  revisedEstimatedDelivery?: DeliveryWindow | null;
   /** Set only when status is delivered. */
   deliveredAt: IsoDateTime | null;
   items: OrderItem[];
@@ -164,6 +166,18 @@ export type TrackingPrimaryAction =
   | "view_details";
 
 /**
+ * Section C alert copy for anomaly variants.
+ * Null on the normal happy path.
+ */
+export interface TrackingAlertViewModel {
+  kind: Exclude<TrackingScreenVariant, "normal">;
+  title: string;
+  body: string;
+  actionLabel: string;
+  action: TrackingPrimaryAction;
+}
+
+/**
  * Full screen view model.
  * Page/route loads domain data → selectors build this → UI renders it.
  */
@@ -171,6 +185,7 @@ export interface OrderTrackingViewModel {
   order: OrderTracking;
   variant: TrackingScreenVariant;
   hero: StatusHeroViewModel;
+  alert: TrackingAlertViewModel | null;
   timeline: TimelineStepViewModel[];
   summary: OrderSummaryViewModel;
   primaryAction: TrackingPrimaryAction;
