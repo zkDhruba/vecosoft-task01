@@ -25,7 +25,7 @@ const happyPathOrder: OrderTracking = {
       name: "Wireless earbuds",
       quantity: 1,
       unitPrice: { amount: 79, currency: "USD" },
-      imageUrl: "/products/earbuds.svg",
+      imageUrl: "/products/earbuds.jpg",
       sku: "AUD-WE-01",
     },
   ],
