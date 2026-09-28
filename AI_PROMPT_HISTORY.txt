@@ -1,0 +1,30 @@
+###1. Analyze the following requirements and act as a senior frontend engineer.
+
+I am building a responsive mobile first order tracking screen for an ecommerce application using Next.js App Router, TypeScript, and Tailwind CSS. First I want to plan the whole thing out.
+
+Requirements are given in the attached image.
+
+Do not generate code yet.
+
+Instead:
+1. Break down the requirements.
+2. Identify all UI states that need to be supported.
+3. Suggest a component architecture.
+4. Suggest a scalable folder structure.
+5. Explain what information should be prioritized visually.
+6. Suggest an implementation plan in phases.
+
+###2. Do the wireframe/layout sketch first.
+Provide wireframe-level section breakdowns and explain why each section exists.
+
+###3. LGTM.
+Proceed with phase 1. But maintain proepr data modeling. Meaning Types/interfaces.
+And explain why each type/interface exists.
+
+###4. Finally finish with phase 4
+
+###5. Keep the functioning and structure of the project same.
+But follow the thematic design font and colors from the attached reference picture.
+
+###6. Make the home page a little more colorfull.
+Like hovering the option the thematic orange bg.
