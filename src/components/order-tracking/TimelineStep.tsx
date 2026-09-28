@@ -17,8 +17,8 @@ export function TimelineStep({ step, isLast }: TimelineStepProps) {
       {!isLast ? (
         <span
           aria-hidden
-          className={`absolute top-7 left-[15px] h-[calc(100%-12px)] w-px ${
-            isCompleted ? "bg-teal-700" : "bg-stone-200"
+          className={`absolute top-8 left-[15px] h-[calc(100%-14px)] w-[2px] rounded-full ${
+            isCompleted ? "bg-brand" : "bg-line"
           }`}
         />
       ) : null}
@@ -26,37 +26,37 @@ export function TimelineStep({ step, isLast }: TimelineStepProps) {
       <span
         className={`relative z-10 mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full border-2 ${
           isCompleted
-            ? "border-teal-700 bg-teal-700 text-white"
+            ? "border-brand bg-brand text-white"
             : isCurrent
-              ? "border-teal-700 bg-white text-teal-800 ring-4 ring-teal-100"
+              ? "border-brand bg-white text-brand ring-4 ring-brand-soft"
               : isPending
-                ? "border-dashed border-stone-300 bg-stone-50 text-stone-300"
-                : "border-stone-200 bg-white text-stone-300"
+                ? "border-dashed border-[#d9d3cc] bg-[#f7f4f0] text-[#cfc8c0]"
+                : "border-line bg-white text-[#d4cec7]"
         }`}
         aria-current={isCurrent ? "step" : undefined}
       >
-        {isCompleted ? <Check className="size-4" strokeWidth={2.5} /> : null}
+        {isCompleted ? <Check className="size-4" strokeWidth={2.75} /> : null}
         {isCurrent ? (
-          <span className="size-2.5 rounded-full bg-teal-700" />
+          <span className="size-2.5 rounded-full bg-brand" />
         ) : null}
       </span>
 
       <div className="min-w-0 flex-1 pb-6">
         <p
-          className={`text-sm font-medium ${
-            isCurrent || isCompleted ? "text-stone-900" : "text-stone-400"
+          className={`text-sm font-bold ${
+            isCurrent || isCompleted ? "text-foreground" : "text-[#b0aaa3]"
           }`}
         >
           {step.label}
         </p>
         {step.occurredAt && !isPending ? (
-          <p className="mt-0.5 text-xs text-stone-500">
+          <p className="mt-0.5 text-xs text-muted">
             {formatDateTime(step.occurredAt)}
             {step.description ? ` · ${step.description}` : null}
           </p>
         ) : null}
         {isPending ? (
-          <p className="mt-0.5 text-xs text-stone-400">Awaiting carrier update</p>
+          <p className="mt-0.5 text-xs text-muted">Awaiting carrier update</p>
         ) : null}
       </div>
     </li>

@@ -1,3 +1,4 @@
+import { Bike } from "lucide-react";
 import type {
   StatusHeroViewModel,
   TrackingScreenVariant,
@@ -10,31 +11,35 @@ interface StatusHeroProps {
 
 const heroTone: Record<
   TrackingScreenVariant,
-  { shell: string; eyebrow: string; eta: string }
+  { shell: string; eyebrow: string; title: string; eta: string; badge: string }
 > = {
   normal: {
-    shell:
-      "bg-teal-800 text-teal-50 shadow-[0_12px_40px_-24px_rgba(19,78,74,0.85)]",
-    eyebrow: "text-teal-200/90",
-    eta: "text-teal-100",
+    shell: "border-line bg-surface",
+    eyebrow: "text-muted",
+    title: "text-foreground",
+    eta: "text-brand",
+    badge: "bg-brand-soft text-brand",
   },
   delayed: {
-    shell:
-      "bg-amber-900 text-amber-50 shadow-[0_12px_40px_-24px_rgba(120,53,15,0.75)]",
-    eyebrow: "text-amber-200/90",
-    eta: "font-medium text-amber-100",
+    shell: "border-orange-200 bg-[#fff6ef]",
+    eyebrow: "text-orange-700/80",
+    title: "text-foreground",
+    eta: "text-brand-dark",
+    badge: "bg-orange-100 text-brand-dark",
   },
   tracking_unavailable: {
-    shell:
-      "bg-stone-700 text-stone-50 shadow-[0_12px_40px_-24px_rgba(41,37,36,0.7)]",
-    eyebrow: "text-stone-300",
-    eta: "text-stone-200",
+    shell: "border-line bg-surface",
+    eyebrow: "text-muted",
+    title: "text-foreground",
+    eta: "text-muted",
+    badge: "bg-[#f3f1ee] text-muted",
   },
   delivered_not_received: {
-    shell:
-      "bg-teal-900 text-teal-50 shadow-[0_12px_40px_-24px_rgba(19,78,74,0.85)]",
-    eyebrow: "text-teal-200/90",
-    eta: "text-teal-100",
+    shell: "border-line bg-surface",
+    eyebrow: "text-muted",
+    title: "text-foreground",
+    eta: "text-sage",
+    badge: "bg-sage-soft text-sage",
   },
 };
 
@@ -44,20 +49,27 @@ export function StatusHero({ hero, variant }: StatusHeroProps) {
   return (
     <section
       aria-labelledby="tracking-status-heading"
-      className={`rounded-2xl px-5 py-6 ${tone.shell}`}
+      className={`relative overflow-hidden rounded-3xl border px-5 py-5 shadow-[var(--shadow-card)] ${tone.shell}`}
     >
-      <p
-        className={`text-xs font-medium uppercase tracking-[0.14em] ${tone.eyebrow}`}
+      <div className="relative z-10 max-w-[70%]">
+        <p className={`text-xs font-semibold uppercase tracking-[0.12em] ${tone.eyebrow}`}>
+          Estimated delivery
+        </p>
+        <h2
+          id="tracking-status-heading"
+          className={`mt-2 font-display text-[1.75rem] leading-tight font-semibold tracking-tight ${tone.title}`}
+        >
+          {hero.statusLabel}
+        </h2>
+        <p className={`mt-2 text-sm font-semibold ${tone.eta}`}>{hero.etaLabel}</p>
+      </div>
+
+      <div
+        className={`absolute top-4 right-4 flex size-16 items-center justify-center rounded-full ${tone.badge}`}
+        aria-hidden
       >
-        Current status
-      </p>
-      <h2
-        id="tracking-status-heading"
-        className="mt-2 text-2xl font-semibold tracking-tight text-white"
-      >
-        {hero.statusLabel}
-      </h2>
-      <p className={`mt-2 text-sm ${tone.eta}`}>{hero.etaLabel}</p>
+        <Bike className="size-8" strokeWidth={2} />
+      </div>
     </section>
   );
 }

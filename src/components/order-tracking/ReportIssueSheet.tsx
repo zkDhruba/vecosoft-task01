@@ -61,13 +61,13 @@ export function ReportIssueSheet({
     >
       {step === "confirm" ? (
         <div className="space-y-4">
-          <p className="text-sm leading-relaxed text-stone-600">
+          <p className="text-sm leading-relaxed text-muted">
             Confirm that order #{orderNumber} was marked delivered but you have
             not received it. We will open a support case.
           </p>
 
           <label className="block">
-            <span className="text-sm font-medium text-stone-800">
+            <span className="text-sm font-bold text-foreground">
               Add a note (optional)
             </span>
             <textarea
@@ -75,7 +75,7 @@ export function ReportIssueSheet({
               onChange={(event) => setNote(event.target.value)}
               rows={3}
               placeholder="Gate code, neighbor notes, or anything else that helps"
-              className="mt-2 w-full resize-none rounded-xl border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800 outline-none ring-teal-700/30 placeholder:text-stone-400 focus:ring-2"
+              className="mt-2 w-full resize-none rounded-2xl border border-line bg-surface px-3 py-2 text-sm text-foreground outline-none ring-brand/25 placeholder:text-muted focus:ring-2"
             />
           </label>
 
@@ -84,7 +84,7 @@ export function ReportIssueSheet({
               type="button"
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-stone-900 text-sm font-medium text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-70"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-brand text-sm font-bold text-white transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-70"
             >
               {isSubmitting ? (
                 <>
@@ -99,7 +99,7 @@ export function ReportIssueSheet({
               type="button"
               onClick={handleClose}
               disabled={isSubmitting}
-              className="inline-flex h-12 items-center justify-center rounded-xl border border-stone-200 bg-white text-sm font-medium text-stone-800 transition hover:bg-stone-50 disabled:opacity-70"
+              className="inline-flex h-12 items-center justify-center rounded-2xl border border-line bg-surface text-sm font-bold text-foreground transition hover:bg-brand-soft disabled:opacity-70"
             >
               Cancel
             </button>
@@ -107,22 +107,22 @@ export function ReportIssueSheet({
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="flex size-11 items-center justify-center rounded-full bg-teal-50 text-teal-800">
+          <div className="flex size-11 items-center justify-center rounded-full bg-sage-soft text-sage">
             <CheckCircle2 className="size-5" aria-hidden />
           </div>
-          <p className="text-sm leading-relaxed text-stone-600">
+          <p className="text-sm leading-relaxed text-muted">
             Your delivery issue was submitted. Support will follow up using your
             account contact details.
           </p>
           {caseId ? (
-            <p className="rounded-xl bg-stone-100 px-3 py-2 font-mono text-sm text-stone-800">
+            <p className="rounded-2xl bg-brand-soft px-3 py-2 font-mono text-sm font-bold text-brand">
               {caseId}
             </p>
           ) : null}
           <button
             type="button"
             onClick={handleClose}
-            className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-stone-900 text-sm font-medium text-white transition hover:bg-stone-800"
+            className="inline-flex h-12 w-full items-center justify-center rounded-2xl bg-brand text-sm font-bold text-white transition hover:bg-brand-dark"
           >
             Done
           </button>

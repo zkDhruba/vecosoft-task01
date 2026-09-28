@@ -1,5 +1,6 @@
 "use client";
 
+import { Headset } from "lucide-react";
 import { TRACKING_PRIMARY_ACTION_LABELS } from "@/lib/order-tracking";
 import type { TrackingPrimaryAction } from "@/lib/order-tracking";
 
@@ -31,13 +32,22 @@ export function ActionBar({
     onPrimaryAction();
   };
 
+  const isSupportPrimary =
+    primaryAction === "contact_support" ||
+    (primaryAction === "report_issue" && issueReported);
+
   return (
     <section aria-label="Order actions" className="space-y-2">
       <button
         type="button"
         onClick={handlePrimary}
-        className="flex h-12 w-full items-center justify-center rounded-xl bg-stone-900 text-sm font-medium text-white transition hover:bg-stone-800"
+        className={`flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-sm font-bold transition ${
+          primaryAction === "report_issue" && !issueReported
+            ? "bg-brand text-white hover:bg-brand-dark"
+            : "border border-line bg-surface text-foreground hover:bg-brand-soft"
+        }`}
       >
+        {isSupportPrimary ? <Headset className="size-4" aria-hidden /> : null}
         {primaryLabel}
       </button>
 
@@ -45,15 +55,16 @@ export function ActionBar({
         <button
           type="button"
           onClick={onContactSupport}
-          className="flex h-12 w-full items-center justify-center rounded-xl border border-stone-200 bg-white text-sm font-medium text-stone-800 transition hover:bg-stone-50"
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-line bg-surface text-sm font-bold text-foreground transition hover:bg-brand-soft"
         >
+          <Headset className="size-4" aria-hidden />
           Contact support
         </button>
       ) : (
         <button
           type="button"
           onClick={onViewDetails}
-          className="flex h-12 w-full items-center justify-center rounded-xl border border-stone-200 bg-white text-sm font-medium text-stone-800 transition hover:bg-stone-50"
+          className="flex h-12 w-full items-center justify-center rounded-2xl border border-line bg-surface text-sm font-bold text-foreground transition hover:bg-brand-soft"
         >
           View order details
         </button>
@@ -63,7 +74,7 @@ export function ActionBar({
         <button
           type="button"
           onClick={onViewDetails}
-          className="flex h-11 w-full items-center justify-center text-sm font-medium text-stone-600 transition hover:text-stone-900"
+          className="flex h-11 w-full items-center justify-center text-sm font-bold text-muted transition hover:text-brand"
         >
           View order details
         </button>

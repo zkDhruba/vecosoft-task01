@@ -118,9 +118,7 @@ const ordersById: Record<string, OrderTracking> = {
   [deliveredNotReceivedOrder.orderId]: deliveredNotReceivedOrder,
 };
 
-export function getMockOrderTracking(
-  orderId: string,
-): OrderTracking | null {
+export function getMockOrderTracking(orderId: string): OrderTracking | null {
   const key = orderId.trim().toLowerCase();
   return ordersById[key] ?? ordersById[orderId] ?? null;
 }

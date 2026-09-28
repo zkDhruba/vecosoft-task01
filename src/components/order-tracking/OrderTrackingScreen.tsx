@@ -49,15 +49,18 @@ export function OrderTrackingScreen({ viewModel }: OrderTrackingScreenProps) {
   return (
     <>
       <div className="mx-auto flex w-full max-w-[430px] flex-col gap-5 px-4 py-6 sm:px-5">
-        <OrderTrackingHeader orderNumber={order.orderNumber} />
+        <OrderTrackingHeader
+          orderNumber={order.orderNumber}
+          onHelp={openSupport}
+        />
         <StatusHero hero={hero} variant={variant} />
 
         {issueReported ? (
           <div
             role="status"
-            className="flex items-start gap-3 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-teal-950"
+            className="flex items-start gap-3 rounded-3xl border border-[#d7e6d3] bg-sage-soft px-4 py-3 text-[#355338]"
           >
-            <CheckCircle2 className="mt-0.5 size-4 shrink-0" aria-hidden />
+            <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-sage" aria-hidden />
             <p className="text-sm leading-relaxed">
               Delivery issue reported
               {reportedCaseId ? ` · ${reportedCaseId}` : null}. Support will
@@ -90,6 +93,7 @@ export function OrderTrackingScreen({ viewModel }: OrderTrackingScreenProps) {
         <OrderSummary
           summary={summary}
           shippingAddressSummary={order.shippingAddressSummary}
+          onViewDetails={openDetails}
         />
         <ActionBar
           primaryAction={primaryAction}

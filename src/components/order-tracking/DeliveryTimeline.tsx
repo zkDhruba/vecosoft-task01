@@ -7,10 +7,13 @@ interface DeliveryTimelineProps {
 
 export function DeliveryTimeline({ steps }: DeliveryTimelineProps) {
   return (
-    <section aria-labelledby="delivery-timeline-heading">
+    <section
+      aria-labelledby="delivery-timeline-heading"
+      className="rounded-3xl border border-line bg-surface p-4 shadow-[var(--shadow-card)]"
+    >
       <h2
         id="delivery-timeline-heading"
-        className="text-sm font-semibold tracking-tight text-stone-900"
+        className="font-display text-base font-semibold tracking-tight text-foreground"
       >
         Delivery progress
       </h2>

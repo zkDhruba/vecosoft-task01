@@ -15,8 +15,8 @@ interface OrderDetailsSheetProps {
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-start justify-between gap-4 py-2">
-      <dt className="text-sm text-stone-500">{label}</dt>
-      <dd className="text-right text-sm font-medium text-stone-900">{value}</dd>
+      <dt className="text-sm text-muted">{label}</dt>
+      <dd className="text-right text-sm font-bold text-foreground">{value}</dd>
     </div>
   );
 }
@@ -29,7 +29,7 @@ export function OrderDetailsSheet({
 }: OrderDetailsSheetProps) {
   return (
     <BottomSheet open={open} title="Order details" onClose={onClose}>
-      <dl className="divide-y divide-stone-100 rounded-xl border border-stone-200 px-3">
+      <dl className="divide-y divide-line rounded-2xl border border-line px-3">
         <DetailRow label="Order" value={`#${order.orderNumber}`} />
         <DetailRow label="Placed" value={formatDateTime(order.placedAt)} />
         {order.carrierName ? (
@@ -45,13 +45,13 @@ export function OrderDetailsSheet({
         ) : null}
       </dl>
 
-      <h3 className="mt-5 text-sm font-semibold tracking-tight text-stone-900">
+      <h3 className="mt-5 font-display text-sm font-semibold tracking-tight text-foreground">
         Items
       </h3>
       <ul className="mt-3 space-y-3">
         {summary.items.map((item) => (
           <li key={item.id} className="flex items-center gap-3">
-            <div className="relative size-12 shrink-0 overflow-hidden rounded-xl bg-stone-100">
+            <div className="relative size-12 shrink-0 overflow-hidden rounded-2xl bg-brand-soft">
               {item.imageUrl ? (
                 <Image
                   src={item.imageUrl}
@@ -63,15 +63,15 @@ export function OrderDetailsSheet({
               ) : null}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-stone-900">
+              <p className="truncate text-sm font-bold text-foreground">
                 {item.name}
               </p>
-              <p className="text-xs text-stone-500">
+              <p className="text-xs text-muted">
                 Qty {item.quantity}
                 {item.sku ? ` · SKU ${item.sku}` : null}
               </p>
             </div>
-            <p className="text-sm font-medium text-stone-800">
+            <p className="text-sm font-bold text-foreground">
               {formatMoney({
                 amount: item.unitPrice.amount * item.quantity,
                 currency: item.unitPrice.currency,
@@ -81,9 +81,9 @@ export function OrderDetailsSheet({
         ))}
       </ul>
 
-      <div className="mt-4 flex items-center justify-between border-t border-stone-100 pt-3">
-        <span className="text-sm text-stone-500">Total paid</span>
-        <span className="text-sm font-semibold text-stone-900">
+      <div className="mt-4 flex items-center justify-between border-t border-line pt-3">
+        <span className="text-sm text-muted">Total paid</span>
+        <span className="font-display text-base font-semibold text-foreground">
           {formatMoney(summary.total)}
         </span>
       </div>

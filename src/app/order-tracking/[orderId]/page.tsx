@@ -20,7 +20,7 @@ export default async function OrderTrackingPage({
 
   if (!order) {
     return (
-      <main className="min-h-full bg-[radial-gradient(circle_at_top,_#f5f5f4_0%,_#e7e5e4_55%,_#d6d3d1_100%)]">
+      <main className="min-h-full bg-background">
         <TrackingEmpty orderId={orderId} />
       </main>
     );
@@ -29,7 +29,7 @@ export default async function OrderTrackingPage({
   const viewModel = toOrderTrackingViewModel(order, MOCK_NOW);
 
   return (
-    <main className="min-h-full bg-[radial-gradient(circle_at_top,_#f5f5f4_0%,_#e7e5e4_55%,_#d6d3d1_100%)]">
+    <main className="min-h-full bg-background">
       <OrderTrackingScreen viewModel={viewModel} />
     </main>
   );
